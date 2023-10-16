@@ -16,11 +16,11 @@ const App = ()  => {
 
 
 
-  const addOrderHandler = (oId, oPrice, oProduct, oCategory) => {
+  const addOrderHandler = (oId, oPrice, odish, oCategory) => {
     const newOrder = {
       OrderId: oId,
       price: oPrice,
-      product: oProduct,
+      dish: odish,
       category: oCategory,
       id: Math.random().toString(),
     };

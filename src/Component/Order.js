@@ -1,68 +1,54 @@
-import React, { useState } from "react";
+import { useState } from "react";
 const Order = (props) => {
-  const [productId, setProductId] = useState("");
-  const [productPrice, setProductPrice] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productCategory, setProductCategory] = useState("Food");
+  const [orderId, setOrderId] = useState("");
+  const [orderPrice, setOrderPrice] = useState("");
+  const [OrderDish, setOrderDish] = useState("");
+  const [OrderTable, setOrderTable] = useState("Table1");
 
   const idHandler = (event) => {
-    setProductId(event.target.value);
+    setOrderId(event.target.value);
   };
   const priceHandler = (event) => {
-    setProductPrice(event.target.value);
+    setOrderPrice(event.target.value);
   };
-  const productNameHandler = (event) => {
-    setProductName(event.target.value);
+  const dishHandler = (event) => {
+    setOrderDish(event.target.value);
   };
-  const categoryHandler = (event) => {
-    setProductCategory(event.target.value);
+  const tableHandler = (event) => {
+    setOrderTable(event.target.value);
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onOrder(productId,productPrice,productName,productCategory);
-    setProductId("");
-    setProductPrice("");
-    setProductName("");
-    setProductCategory("Food");
+    props.onOrder(orderId, orderPrice, OrderDish, OrderTable);
+    setOrderId("");
+    setOrderPrice("");
+    setOrderTable("Table1");
+    setOrderDish("");
   };
 
   return (
     <div className="Order">
       <form onSubmit={submitHandler}>
-        <div className="order-contol">
-          <label htmlFor="Product ID">Product Id</label>
-          <input id="id" type="number" value={productId} onChange={idHandler} />
-        </div>
-        <div className="order-contol">
-          <label htmlFor="Selling Price">Selling Price:</label>
-          <input
-            type="number"
-            id="price"
-            value={productPrice}
-            onChange={priceHandler}
-          />
-        </div>
-        <div className="order-contol">
-          <label htmlFor="Product Name">Product Name:</label>
-          <input
-            type="text"
-            id="product"
-            value={productName}
-            onChange={productNameHandler}
-          />
-        </div>
-        <div className="order-contol">
-          <label htmlFor="Table">Choose a Category </label>
-          <select value={productCategory} onChange={categoryHandler}>
-            <option value="Food">Food</option>
-            <option value="SkinCare">SkinCare</option>
-            <option value="ElectronicItem">ElectronicItem</option>
-          </select>
-        </div>
-        <div>
-          <button type="submit" className="order-action">Add Product</button>
-        </div>
+        <label htmlFor="ID">Unique Order Id:</label>
+        <input id="id" type="number" value={orderId} onChange={idHandler} />
+        <label htmlFor="price">Choose Price:</label>
+        <input
+          type="number"
+          id="price"
+          value={orderPrice}
+          onChange={priceHandler}
+        />
+        <label htmlFor="dish">Choose Dish:</label>
+        <input type="text" id="dish" value={OrderDish} onChange={dishHandler} />
+        <label htmlFor="Table">Choose Table: </label>
+        <select value={OrderTable} onChange={tableHandler}>
+          <option value="Table1">Table1</option>
+          <option value="Table2">Table2</option>
+          <option value="Table3">Table3</option>
+        </select>
+
+        <button type="submit">Add to bill</button>
       </form>
     </div>
   );
