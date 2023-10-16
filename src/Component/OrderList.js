@@ -12,7 +12,7 @@ const OrderList = (props) => {
     return orders.map((order) => (
       <li key={order.id}>
         {order.OrderId} - {order.price} - {order.dish} - {order.category}{" "}
-        <button type="button" onClick={() => props.onClick(order.OrderId)}>
+        <button type="button" onClick={() => props.onClick(order.OrderId,order.dish)}>
           Delete Product
         </button>
       </li>

@@ -8,7 +8,10 @@ const App = ()  => {
   const [isOrder, setIsOrder] = useState(false);
 
   useEffect(() => {
-    const storedOrders = Object.values(localStorage).map((item) => JSON.parse(item));
+    // this is used when we iterate through value
+    //const storedOrders = Object.keys(localStorage).map((item) => JSON.parse(item));
+    // this is used when we iterate through key
+    const storedOrders = Object.keys(localStorage).map(key => JSON.parse(localStorage.getItem(key)));
     setOrderList(storedOrders);
     console.log("effect")
     console.log(storedOrders)
@@ -24,20 +27,18 @@ const App = ()  => {
       category: oCategory,
       id: Math.random().toString(),
     };
-    
-    localStorage.setItem( oId.toString(),JSON.stringify(newOrder));
+    const key = `${oId}-${odish}`
+    localStorage.setItem( key,JSON.stringify(newOrder));
     const updatedList = [...orderList, newOrder];
     setOrderList(updatedList);
     setIsOrder(true);
   };
 
 
-  const deleteOrderHandler = (oId) => {
-    // Remove the order from local storage
-    localStorage.removeItem(oId.toString());
-  
-    // Update the order list on the screen by filtering out the deleted order
-    const updatedList = orderList.filter((order) => order.OrderId !== oId);
+  const deleteOrderHandler = (oId,odish) => {
+    const key = `${oId}-${odish}`
+    localStorage.removeItem( key);
+    const updatedList = orderList.filter((order) => order.id !== oId && order.dish!==odish)
     setOrderList(updatedList);
   };
   
