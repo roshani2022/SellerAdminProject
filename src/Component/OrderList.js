@@ -1,5 +1,5 @@
-import React from "react";
 
+import React from "react";
 const OrderList = (props) => {
   const foodOrder = props.orders.filter((order) => order.category === "Food");
   const electronicOrder = props.orders.filter(
@@ -36,3 +36,4 @@ const OrderList = (props) => {
   );
 };
 export default OrderList;
+

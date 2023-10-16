@@ -8,14 +8,13 @@ const App = ()  => {
   const [isOrder, setIsOrder] = useState(false);
 
   useEffect(() => {
-    const loadedOrders = [];
-    setOrderList(loadedOrders);
-      const orderInformation = JSON.parse(localStorage.getItem("key"))
-      console.log(orderInformation)
-      if (orderInformation ==="newOrder") {
-        setIsOrder(true);
-      }
-    }, []);
+    const storedOrders = Object.values(localStorage).map((item) => JSON.parse(item));
+    setOrderList(storedOrders);
+    console.log("effect")
+    console.log(storedOrders)
+  }, []);
+
+
 
   const addOrderHandler = (oId, oPrice, oProduct, oCategory) => {
     const newOrder = {
@@ -25,20 +24,23 @@ const App = ()  => {
       category: oCategory,
       id: Math.random().toString(),
     };
-        
-    localStorage.setItem( +oId,JSON.stringify(newOrder));
+    
+    localStorage.setItem( oId.toString(),JSON.stringify(newOrder));
     const updatedList = [...orderList, newOrder];
     setOrderList(updatedList);
     setIsOrder(true);
   };
 
+
   const deleteOrderHandler = (oId) => {
- 
-    localStorage.removeItem(+oId)
-    const updatedList = orderList.filter((order) => order.id !== oId);
-    
+    // Remove the order from local storage
+    localStorage.removeItem(oId.toString());
+  
+    // Update the order list on the screen by filtering out the deleted order
+    const updatedList = orderList.filter((order) => order.OrderId !== oId);
     setOrderList(updatedList);
-  };  
+  };
+  
 
   return (
     <div className="App">
